@@ -1,0 +1,68 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model GrinderMake {
+  name        String         @id @db.VarChar(255)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  country     String?        @db.VarChar(255)
+  description String?
+  url         String?
+  models      GrinderModel[]
+}
+
+model GrinderModel {
+  id        Int         @id @default(autoincrement())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  name      String      @db.VarChar(255)
+  url       String?
+  makeName  String      @db.VarChar(255)
+  make      GrinderMake @relation(fields: [makeName], references: [name])
+  settings  Setting[]
+
+  @@unique([makeName, name])
+}
+
+model Roaster {
+  name        String   @id @db.VarChar(255)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  country     String?
+  description String?
+  url         String?
+  beans       Bean[]
+}
+
+model Bean {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  roasterName String    @db.VarChar(255)
+  roaster     Roaster   @relation(fields: [roasterName], references: [name])
+  name        String    @db.VarChar(255)
+  description String?
+  settings    Setting[]
+
+  @@unique([roasterName, name])
+}
+
+model Setting {
+  id        Int          @id @default(autoincrement())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  grinderId Int
+  grinder   GrinderModel @relation(fields: [grinderId], references: [id])
+  beanId    Int
+  bean      Bean         @relation(fields: [beanId], references: [id])
+  basket    String       @db.VarChar(255)
+  dose      Float
+  grindSize String       @db.VarChar(255)
+  comment   String?
+}

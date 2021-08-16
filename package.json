@@ -1,0 +1,41 @@
+{
+  "name": "bean-counter-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.ts",
+  "dependencies": {
+    "@prisma/client": "2.29.1",
+    "@types/cors": "^2.8.12",
+    "chalk": "^4.1.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.6.1",
+    "prisma": "2.29.1",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.3.5"
+  },
+  "scripts": {
+    "dev": "ts-node-dev --rs --exit-child --respawn --transpile-only src/app.ts",
+    "generate": "npx prisma generate",
+    "db:inspect": "npx prisma studio",
+    "db:migrate": "npx prisma migrate dev",
+    "db:seed": "npx prisma db seed --preview-feature",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jezzzm/bean-counter-server.git"
+  },
+  "keywords": [
+    "coffee"
+  ],
+  "author": "Jez Milledge",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jezzzm/bean-counter-server/issues"
+  },
+  "homepage": "https://github.com/jezzzm/bean-counter-server#readme"
+}
